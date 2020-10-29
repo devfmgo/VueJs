@@ -10,11 +10,16 @@ import{createApp} from 'vue/dist/vue.esm-browser.js'
             Odd
             </div>
             <div v-for="number in numbers">
-            <div v-if="isEven(number)">
+            <div :class="getClass(number)">
             {{number}}
             </div>
             </div>
             `,
+            computed:{
+                evenList(){
+                    return this.numbers.filter(this.isEven)
+                }
+            },
             data(){
                 return{
                     count:0,
@@ -22,6 +27,12 @@ import{createApp} from 'vue/dist/vue.esm-browser.js'
                 }
             },
             methods:{
+                getClass(number){
+                    if (this.isEven(number)) {
+                        return "red"
+                    }
+                    return "blue"
+                },
                 increment(val){
                     this.count +=val
                 },
