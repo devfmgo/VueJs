@@ -9,18 +9,24 @@ import{createApp} from 'vue/dist/vue.esm-browser.js'
             <div v-else>
             Odd
             </div>
+            <div v-for="number in numbers">
+            <div v-if="isEven(number)">
+            {{number}}
+            </div>
+            </div>
             `,
             data(){
                 return{
-                    count:0
+                    count:0,
+                    numbers:[1,2,3,4,5,6,7,8,9,10]
                 }
             },
             methods:{
                 increment(val){
                     this.count +=val
                 },
-                isEven(){
-                    return this.count % 2 == 0
+                isEven(number){
+                    return number % 2 == 0
                 }
             }
         }).mount('#app') 
