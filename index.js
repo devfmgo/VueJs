@@ -1,18 +1,34 @@
 import{createApp} from 'vue/dist/vue.esm-browser.js'
-        const app = createApp({
+const Num  = {
+    props:{
+        number:{
+            type:Number,
+            required:true
+        }
+    },
+    template:`
+    <div :class="getClass(number)">{{number}}</div>
+    `,
+    methods:{
+        getClass(number){
+            if (this.isEven(number)) {
+                return "red"
+            }
+            return "blue"
+        },
+        isEven(number){
+            return number % 2 == 0
+        }
+    }
+} 
+const app = createApp({
+    components:{
+        Num
+    },
             template:`
             <button @click="increment(5)">Increment</button>
             <p>{{count}}</p>
-            <div v-if="isEven(count)">
-            Even 
-            </div>
-            <div v-else>
-            Odd
-            </div>
-            <div v-for="number in numbers">
-            <div :class="getClass(number)" :title="number">
-            {{number}}
-            </div>
+            <num v-for="number in numbers" :number="number"/>
             </div>
             <input type="checkbox" v-model="value" value="a"/>
             <input type="checkbox" v-model="value" value="b"/>
@@ -20,9 +36,7 @@ import{createApp} from 'vue/dist/vue.esm-browser.js'
             <div v-if="error">{{error}}</div>
             `,
             computed:{
-                evenList(){
-                    return this.numbers.filter(this.isEven)
-                },
+               
                 error(){
                     if (this.value.length < 7) {
                         return "Too short"
@@ -41,17 +55,9 @@ import{createApp} from 'vue/dist/vue.esm-browser.js'
                 input($evt){
                this.value = $evt.target.value
                 },
-                getClass(number){
-                    if (this.isEven(number)) {
-                        return "red"
-                    }
-                    return "blue"
-                },
+                
                 increment(val){
                     this.count +=val
-                },
-                isEven(number){
-                    return number % 2 == 0
                 }
             }
         }).mount('#app') 
