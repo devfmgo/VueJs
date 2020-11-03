@@ -28,7 +28,6 @@ export default {
        padding: 10px 40px;
        font-size: 16px;
        cursor: pointer;
-       
    }
    button:hover{
        filter: brightness(125%);
